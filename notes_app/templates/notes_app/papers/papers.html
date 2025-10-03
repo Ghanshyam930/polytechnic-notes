@@ -1,0 +1,139 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Previous Year Papers - PolyNotes{% endblock %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Previous Year Question Papers</h1>
+        <p class="lead">Access question papers from last 3 years for all semesters</p>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control" id="searchPapers" placeholder="Search papers by subject or year...">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <select class="form-select" id="filterBranch">
+                        <option value="">All Branches</option>
+                        <option value="CS">Computer Science</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="ME">Mechanical</option>
+                        <option value="EE">Electrical</option>
+                        <option value="ci">civil</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <select class="form-select" id="filterSemester">
+                        <option value="">All Semesters</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="papersContainer">
+        {% for paper in papers %}
+        <div class="col-lg-4 col-md-6 mb-4 paper-card" 
+             data-branch="{{ paper.subject.branch.code }}" 
+             data-semester="{{ paper.subject.semester.number }}"
+             data-subject="{{ paper.subject.name|lower }}"
+             data-year="{{ paper.year }}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">{{ paper.subject.name }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary">{{ paper.subject.branch.name }}</span>
+                        <span class="badge bg-info text-dark">Sem {{ paper.subject.semester.number }}</span>
+                    </div>
+                    <p class="card-text">
+                        <i class="fas fa-calendar-alt me-2"></i>Year: {{ paper.year }}
+                    </p>
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    {% if paper.file %}
+                        <a href="{{ paper.file.url }}" download class="btn btn-success w-100">
+                            <i class="fas fa-download me-2"></i> Download Paper
+                        </a>
+                    {% else %}
+                        <button class="btn btn-warning w-100" disabled>
+                            <i class="fas fa-times-circle me-2"></i> File Not Available
+                        </button>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">No Papers Available</h4>
+                <p>We haven't uploaded papers for this branch/semester yet.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchPapers');
+    const filterBranch = document.getElementById('filterBranch');
+    const filterSemester = document.getElementById('filterSemester');
+    const paperCards = document.querySelectorAll('.paper-card');
+
+    function filterPapers() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const branchValue = filterBranch.value;
+        const semesterValue = filterSemester.value;
+
+        paperCards.forEach(card => {
+            const branchMatch = !branchValue || card.dataset.branch === branchValue;
+            const semesterMatch = !semesterValue || card.dataset.semester === semesterValue;
+            const subjectMatch = card.dataset.subject.includes(searchTerm) || 
+                                 card.dataset.year.includes(searchTerm);
+
+            if (branchMatch && semesterMatch && subjectMatch) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Event listeners for filtering
+    searchInput.addEventListener('input', filterPapers);
+    filterBranch.addEventListener('change', filterPapers);
+    filterSemester.addEventListener('change', filterPapers);
+});
+</script>
+
+<style>
+    .paper-card {
+        transition: transform 0.3s ease;
+    }
+    .paper-card:hover {
+        transform: translateY(-5px);
+    }
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .card-header {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}

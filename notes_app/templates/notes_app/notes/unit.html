@@ -1,0 +1,82 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Select Unit{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Select Unit</h4>
+        <p class="mb-0">
+            Language: {{ language.name }} | 
+            Branch: {{ branch.name }} | 
+            Semester: {{ semester.number }} | 
+            Subject: {{ subject.name }}
+        </p>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {% for unit in units %}
+            <div class="col-md-4 mb-4">
+                <div class="card unit-card h-100">
+                    <div class="card-body text-center">
+                        {% comment %} <div class="unit-number-circle mx-auto mb-3">
+                            {{ unit.number }}
+                        </div> {% endcomment %}
+                        <h5 class="card-title">Unit {{ unit.number }}</h5>
+                        <p class="card-text text-muted">{{ subject.name }}</p>
+                        <a href="{% url 'view_note' language_id branch_id semester_id subject_id unit.id %}" 
+                           class="btn btn-primary stretched-link">View Notes</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No units available for {{ subject.name }}. Please contact admin.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'select_subject' language_id branch_id semester_id %}" 
+               class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Subjects
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .unit-card {
+        transition: transform 0.3s;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .unit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .unit-number-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #0d6efd;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+    }
+</style>
+{% endblock %}

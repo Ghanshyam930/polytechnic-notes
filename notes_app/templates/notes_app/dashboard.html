@@ -1,0 +1,301 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>User Dashboard</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#profile" class="list-group-item list-group-item-action active" data-bs-toggle="pill">
+                        <i class="fas fa-user me-2"></i>Profile
+                    </a>
+                    {% comment %} <a href="#my-notes" class="list-group-item list-group-item-action" data-bs-toggle="pill">
+                        <i class="fas fa-bookmark me-2"></i>My Notes
+                    </a>
+                    <a href="#saved-papers" class="list-group-item list-group-item-action" data-bs-toggle="pill">
+                        <i class="fas fa-file-pdf me-2"></i>Saved Papers
+                    </a> {% endcomment %}
+                    {% comment %} <a href="#my-doubts" class="list-group-item list-group-item-action" data-bs-toggle="pill">
+                        <i class="fas fa-question-circle me-2"></i>My Doubts
+                    </a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-9">
+            <div class="tab-content">
+                <!-- Profile Tab -->
+                <div class="tab-pane fade show active" id="profile">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5>Profile Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row mb-4">
+                                    <div class="col-md-3 text-center">
+                                        <div class="profile-pic-container mb-3">
+                                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=0d6efd&color=fff&size=150" 
+                                                 class="rounded-circle img-thumbnail" 
+                                                 alt="Profile Picture"
+                                                 id="profile-pic">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                {{ u_form.username.label_tag }}
+                                                {{ u_form.username }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ u_form.email.label_tag }}
+                                                {{ u_form.email }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ p_form.branch.label_tag }}
+                                                {{ p_form.branch }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ p_form.semester.label_tag }}
+                                                {{ p_form.semester }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i> Update Profile
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Notes Tab -->
+                <div class="tab-pane fade" id="my-notes">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>My Saved Notes</h5>
+                                <span class="badge bg-light text-dark">{{ saved_notes.count }} saved</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if saved_notes %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Subject</th>
+                                            <th>Unit</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for note in saved_notes %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'view_note' note.language.id note.unit.subject.branch.id note.unit.subject.semester.id note.unit.subject.id note.unit.id %}">
+                                                    {{ note.title }}
+                                                </a>
+                                            </td>
+                                            <td>{{ note.unit.subject.name }}</td>
+                                            <td>Unit {{ note.unit.number }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-danger unsave-note" data-note-id="{{ note.id }}">
+                                                    <i class="fas fa-trash-alt"></i> Remove
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-info">
+                                You haven't saved any notes yet. Click the bookmark icon on notes to save them here.
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Papers Tab -->
+                <div class="tab-pane fade" id="saved-papers">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>Saved Previous Papers</h5>
+                                <span class="badge bg-light text-dark">{{ saved_papers.count }} saved</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if saved_papers %}
+                            <div class="row">
+                                {% for paper in saved_papers %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ paper.subject.name }} - {{ paper.year }}</h6>
+                                            <p class="card-text text-muted small">
+                                                {{ paper.subject.branch.name }} | Semester {{ paper.subject.semester.number }}
+                                            </p>
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                            <div class="d-flex justify-content-between">
+                                                <a href="{% url 'view_paper' paper.id %}" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger unsave-paper" data-paper-id="{{ paper.id }}">
+                                                    <i class="fas fa-trash-alt"></i> Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-info">
+                                You haven't saved any previous papers yet. Save papers to access them quickly here.
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Doubts Tab -->
+                <div class="tab-pane fade" id="my-doubts">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>My Doubts</h5>
+                                {% comment %} <a href="{% url 'create_doubt' %}" class="btn btn-light btn-sm">
+                                    <i class="fas fa-plus"></i> Ask New Doubt
+                                </a> {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if user_doubts %}
+                            <div class="list-group">
+                                {% for doubt in user_doubts %}
+                                <a href="{% url 'doubt_detail' doubt.id %}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="mb-1">{{ doubt.question }}</h6>
+                                        <span class="badge {% if doubt.resolved %}bg-success{% else %}bg-warning{% endif %}">
+                                            {% if doubt.resolved %}Resolved{% else %}Pending{% endif %}
+                                        </span>
+                                    </div>
+                                    <small class="text-muted">
+                                        Posted {{ doubt.created_at|timesince }} ago • 
+                                        {{ doubt.answers.count }} answers
+                                    </small>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-info">
+                                You haven't asked any doubts yet. Click the button above to ask your first doubt!
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle note unsaving
+    document.querySelectorAll('.unsave-note').forEach(button => {
+        button.addEventListener('click', function() {
+            const noteId = this.getAttribute('data-note-id');
+            if (confirm('Are you sure you want to remove this note from your saved items?')) {
+                fetch(`/notes/unsave/${noteId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.closest('tr').remove();
+                    }
+                });
+            }
+        });
+    });
+
+    // Handle paper unsaving
+    document.querySelectorAll('.unsave-paper').forEach(button => {
+        button.addEventListener('click', function() {
+            const paperId = this.getAttribute('data-paper-id');
+            if (confirm('Are you sure you want to remove this paper from your saved items?')) {
+                fetch(`/papers/unsave/${paperId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.closest('.col-md-6').remove();
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+
+<style>
+    .profile-pic-container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    .list-group-item.active {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    
+    .nav-pills .nav-link.active {
+        background-color: #0d6efd;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .card-header {
+        border-radius: 0 !important;
+    }
+</style>
+{% endblock %}
+{% endblock %}

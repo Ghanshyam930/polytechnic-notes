@@ -1,0 +1,146 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}{{ paper.subject.name }} - {{ paper.year }} Paper | PolyNotes{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">{{ paper.subject.name }} - {{ paper.year }}</h2>
+                <div>
+                    <span class="badge bg-light text-dark me-2">{{ paper.subject.branch.name }}</span>
+                    <span class="badge bg-info">Semester {{ paper.subject.semester.number }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <!-- PDF Viewer Container -->
+           <!-- PDF Download Section -->
+<div class="pdf-viewer-container border rounded p-3 mb-4 text-center">
+    {% if paper.file %}
+        <a href="{{ paper.file.url }}" download class="btn btn-success btn-lg">
+            <i class="fas fa-download me-2"></i> Download Paper
+        </a>
+    {% else %}
+        <div class="alert alert-warning">
+            No file available for this paper.
+        </div>
+    {% endif %}
+</div>
+
+            
+            <!-- Paper Info and Actions -->
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-muted mb-0">
+                        <i class="fas fa-calendar-alt me-2"></i>Year: {{ paper.year }} | 
+                        <i class="fas fa-user-graduate me-2"></i>Branch: {{ paper.subject.branch.name }} | 
+                        <i class="fas fa-layer-group me-2"></i>Semester: {{ paper.subject.semester.number }}
+                    </p>
+                </div>
+                
+                <div class="btn-group">
+                    <a href="{% url 'papers_list' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Papers
+                    </a>
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-outline-secondary" id="savePaperBtn" data-paper-id="{{ paper.id }}">
+                        <i class="fas fa-bookmark me-2"></i>Save Paper
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Disable right-click and text selection
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+    
+    // Disable text selection
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+    
+    // Save paper functionality
+    const savePaperBtn = document.getElementById('savePaperBtn');
+    if (savePaperBtn) {
+        savePaperBtn.addEventListener('click', function() {
+            const paperId = this.getAttribute('data-paper-id');
+            fetch(`/papers/save/${paperId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const icon = savePaperBtn.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        savePaperBtn.classList.add('btn-success');
+                        savePaperBtn.classList.remove('btn-outline-secondary');
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        savePaperBtn.classList.remove('btn-success');
+                        savePaperBtn.classList.add('btn-outline-secondary');
+                    }
+                }
+            });
+        });
+    }
+    
+    // Disable PDF download in iframe
+    const pdfViewer = document.querySelector('iframe');
+    if (pdfViewer) {
+        pdfViewer.addEventListener('load', function() {
+            try {
+                const iframeDoc = pdfViewer.contentDocument || pdfViewer.contentWindow.document;
+                iframeDoc.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+            } catch (e) {
+                console.log("Could not access iframe document due to CORS");
+            }
+        });
+    }
+});
+</script>
+
+<style>
+    .pdf-viewer-container {
+        background-color: #f8f9fa;
+        min-height: 400px;
+    }
+    
+    iframe {
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+    }
+    
+    .card-header {
+        border-radius: 0 !important;
+    }
+    
+    /* Disable text selection */
+    body {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+{% endblock %}

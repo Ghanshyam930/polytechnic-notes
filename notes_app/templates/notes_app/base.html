@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyNotes - {% block title %}Polytechnic Study Material{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .desktop-menu {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .desktop-menu a, .dropbtn {
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            color: white;
+        }
+        
+        .desktop-menu a:hover, .dropbtn:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            display: block;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9));
+            color: white;
+            text-align: center;
+            padding: 4rem 5%;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: #18176e;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            background: var(--secondary);
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            z-index: 99;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header>
+        <a href="{% url 'home' %}" class="logo">PolyNotes</a>
+        
+        <nav class="desktop-menu">
+            <a href="{% url 'home' %}">Home</a>
+            
+            <div class="dropdown">
+                {% comment %} <button class="dropbtn">Notes <i class="fas fa-caret-down"></i></button> {% endcomment %}
+                   <a href="{% url 'select_language' %}">Notes</a>
+                {% comment %} <div class="dropdown-content">
+                    <a href="{% url 'select_language' %}">Hindi</a>
+                    <a href="{% url 'select_language' %}">English</a>
+                </div> {% endcomment %}
+            </div>
+            
+            <a href="{% url 'papers_list' %}">Previous Papers</a>
+            {% comment %} <a href="#features">Features</a> {% endcomment %}
+            <a href="{% url 'about' %}">About Us</a>
+            {% comment %} <a href="{% url 'contact' %}">Contact</a> {% endcomment %}
+            
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+                <button class="dropbtn">{{ user.username }} <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </nav>
+        
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'select_language' %}"> Notes</a>
+        {% comment %} <a href="{% url 'select_language' %}">English Notes</a> {% endcomment %}
+        <a href="{% url 'papers_list' %}">Previous Papers</a>
+        <a href="#features">Features</a>
+        <a href="{% url 'about' %}">About Us</a>
+        {% comment %} <a href="{% url 'contact' %}">Contact</a> {% endcomment %}
+        
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        <!-- Default content will be overridden by child templates -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>PolyNotes</h3>
+                <p>Your one-stop solution for polytechnic study materials</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <a href="mailto:polynotes@gmail.com">polynotes@gmail.com</a>
+                <p>India</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="https://www.linkedin.com/groups/14781159/">LinkedIn</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom text-center mt-3">
+            <p>© 2025 PolyNotes | Made for Polytechnic Students</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

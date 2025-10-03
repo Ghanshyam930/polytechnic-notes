@@ -1,0 +1,116 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Home - PolyNotes{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Your Complete Polytechnic Learning Hub</h1>
+    <p>Access free study materials, previous year papers for all semesters and branches</p>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <h2 class="text-center mb-4">FEATURES</h2>
+    <p class="text-center mb-5">We provide the best resources for polytechnic students</p>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center p-4">
+                    <i class="fas fa-book-open fa-3x mb-3 text-primary"></i>
+                    <h3>Comprehensive Notes</h3>
+                    <p>Detailed notes covering entire syllabus for each subject</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center p-4">
+                    <i class="fas fa-file-alt fa-3x mb-3 text-primary"></i>
+                    <h3>Previous Papers</h3>
+                    <p>Last 3 years question papers</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center p-4">
+                    <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-primary"></i>
+                    <h3>Teacher Approved</h3>
+                    <p>Content verified by experienced faculty</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center p-4">
+                    <i class="fas fa-mobile-alt fa-3x mb-3 text-primary"></i>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access study materials anytime, anywhere</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Our Impact</h2>
+        <p class="text-center mb-5">Trusted by thousands of polytechnic students</p>
+        
+        <div class="row">
+            <div class="col-md-3 text-center mb-4">
+                <div class="display-4 text-primary">1000+</div>
+                <p class="lead">Happy Students</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="display-4 text-primary">150+</div>
+                <p class="lead">Subject Materials</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="display-4 text-primary">4</div>
+                <p class="lead">Branches Covered</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="display-4 text-primary">24/7</div>
+                <p class="lead">Availability</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Boost Your Polytechnic Journey?</h2>
+        <a href="https://www.linkedin.com/groups/14781159/" class="btn btn-light btn-lg">Connect</a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .features {
+        padding: 5rem 0;
+        background-color: var(--secondary);
+        color: white;
+    }
+    
+    .stats {
+        padding: 5rem 0;
+    }
+    
+    .cta-section {
+        padding: 6rem 0;
+    }
+    
+    .card {
+        transition: transform 0.3s;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card:hover {
+        transform: translateY(-10px);
+    }
+</style>
+{% endblock %}

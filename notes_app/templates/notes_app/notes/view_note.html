@@ -1,0 +1,81 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    {% comment %} <h2 class="mb-4">Notes</h2> {% endcomment %}
+
+    {% for note in notes %}
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">{{ note.title }}</h5>
+        </div>
+
+        <div class="card-body">
+            <!-- Metadata -->
+            <div class="metadata mb-3">
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                    {% comment %} <span class="badge bg-secondary">{{ note.unit.subject.branch.name }}</span> {% endcomment %}
+                    {% comment %} <span class="badge bg-info text-dark">Semester {{ note.unit.subject.semester.number }}</span>
+                    <span class="badge bg-success">{{ note.unit.subject.name }}</span>
+                    <span class="badge bg-warning text-dark">Unit {{ note.unit.number }}</span>
+                    <span class="badge bg-dark">{{ note.language.name }}</span> {% endcomment %}
+                </div>
+                {% comment %} <div class="text-muted small">
+                    Uploaded by: {{ note.uploaded_by.username }} | {{ note.uploaded_at|date:"F d, Y" }}
+                </div> {% endcomment %}
+            </div>
+
+            <!-- Notes Content -->
+            <div class="mb-4 p-3 border rounded bg-light">
+                <div >
+                    {{ note.content|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No notes available for this unit.</p>
+    {% endfor %}
+
+    <!-- Back Button -->
+    <a href="{% url 'select_unit' language_id branch_id semester_id subject_id %}" 
+       class="btn btn-outline-primary">
+        <i class="fas fa-arrow-left"></i> Back to Units
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<style>
+    .metadata {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .card-body {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    .mb-4.p-3.border.rounded.bg-light {
+        background-color: #fdfdfd;
+    }
+</style>
+{% endblock %}
+
+
+
+{% comment %} {% for note in notes %}
+<div class="mb-4 p-3 border rounded">
+  <h5>{{ note.title }}</h5>
+  <div style="white-space: pre-wrap;">
+    {{ note.content|safe }}
+  </div>
+  {% comment %} <small class="text-muted">Uploaded on: {{ note.uploaded_at|date:"d M Y, H:i" }}</small><br> {% endcomment %}
+  {% comment %} <small class="text-muted">By: {{ note.uploaded_by.username }}</small> 
+</div>
+{% empty %}
+<p>No notes available for this unit.</p>
+{% endfor %} {% endcomment %}
+

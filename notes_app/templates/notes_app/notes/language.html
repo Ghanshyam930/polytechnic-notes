@@ -1,0 +1,25 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Select Language{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Select Language for Notes</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for language in languages %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 note-card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ language.name }}</h5>
+                                <a href="{% url 'select_branch' language.id %}" class="btn btn-primary mt-3">Select</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

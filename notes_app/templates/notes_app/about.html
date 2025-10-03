@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PolyNotes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+          header {
+    background: #2c3e50;
+    color: white;
+    padding: 2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+     }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        /* .logo span {
+            color: var(--primary);
+        } */
+        
+       .desktop-menu {
+            display: flex;
+            gap: 1.5rem;
+            font-weight: 900;
+             padding-right: 5px; 
+        }
+        
+        .desktop-menu a {
+            font-size: 1rem;
+            font-weight: 900;
+            transition: color 0.3s;
+            /* padding: 0.5rem 0; */
+        }
+        
+        .desktop-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropbtn {
+            background: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 900;
+            /* font-family: inherit; */
+            padding-top: 7px;
+        }
+        .dropbtn:hover{
+            color: var(--primary);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            right: 0;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            display: block;
+            text-align: left;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+       
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+       
+        
+       
+        
+        
+        
+        
+        /* About Section */
+        .about-section {
+            padding: 1rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 20%;
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.1;
+            color: #555;
+        }
+        
+        
+       
+        
+        /* Team Section */
+        .team-section {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--light);
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-member img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+             /* object-fit: cover;  */
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--light);
+        }
+        
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .team-member p.position {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .team-member p.bio {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: var(--light);
+            border-radius: 50%;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 6rem 5%;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cta-btn:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+       
+      footer {
+      background:  #18176e;
+      color: white;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-section h2, .footer-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-section p, .footer-section a {
+      color: #dcdcdc;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .footer-section a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 1.5rem 0;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            background: var(--secondary);
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            z-index: 99;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-menu, .search-box {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 4rem 5%;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER (NAVBAR) -->
+     <header>
+        <div class="logo">Poly<span>Notes</span></div>
+        
+        <!-- Desktop Menu -->
+        <nav class="desktop-menu">
+            <a href="index.html"><h2>Home</h2></a>
+              <div class="dropdown">
+                <button class="dropbtn"><h2>Notes<i class="fas fa-caret-down"></i></h2></button>
+                <div class="dropdown-content">
+                    <a href="branch.html">Hindi</a>
+                    <a href="enbranch.html">English</a>
+                </div>
+            </div>
+            <a href="papers.html"><h2>Previous Papers</h2></a>
+            <!-- <a href="/syllabus">Syllabus</a> -->
+            <!-- <a href="#features"><h2>Features</h2></a> -->
+            <a href="about.html"><h2>About Us</h2></a>
+          
+            <a href="contact.html"><h2>Contact</h2></a>
+        </nav>
+        
+      
+        <!-- Mobile Hamburger Menu -->
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </header>
+    
+    <!-- Mobile Menu (Hidden by Default) -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="branch.html">Hindi Notes</a>
+        <a href="enbranch.html">English Notes</a>
+        <a href="papers.html">Previous Papers</a>
+        <!-- <a href="/syllabus">Syllabus</a> -->
+        <a href="about.html">About Us</a>
+        
+        <a href="contact.html">Contact</a>
+    </nav>
+    
+   
+    <!-- ABOUT SECTION -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">About us
+
+            </h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Founded in 2025, PolyNotes began as a small initiative to help polytechnic students access quality study materials. Our founders, noticed the challenges students faced in finding organized, reliable resources for their diploma courses.</p>
+                    
+                    <p>What started as a personal collection of notes has grown into a comprehensive platform serving thousands of students across multiple branches. We're proud to have created a community where knowledge is shared freely and learning is made accessible to all.</p>
+                    
+                    <p>Today, PolyNotes offers complete syllabus coverage, previous year papers for all semesters of polytechnic education.</p>
+                </div>
+                
+              
+            </div>
+        </div>
+    </section>
+    
+    <!-- MISSION SECTION -->
+ <!-- <section class="mission-section">
+  <div class="container">
+    <h2 class="section-title">Our Mission & Values</h2>
+    
+    <div class="mission-cards">
+      
+      <div class="mission-card">
+        <i class="fas fa-bullseye"></i>
+        <h3>Our Mission</h3>
+        <ul>
+          <li>📚 Provide free and syllabus-based study materials for all branches.</li>
+          <li>🗂️ Offer notes, previous year papers, and practical files in one place.</li>
+          <li>👥 Build a community of learners and educators to share knowledge.</li>
+          <li>🔄 Continuously improve the platform through feedback and innovation.</li>
+          <li>🔓 Make learning simple, accessible, and effective for every student.</li>
+        </ul>
+      </div>
+
+      <div class="mission-card">
+        <i class="fas fa-eye"></i>
+        <h3>Our Vision</h3>
+        <ul>
+          <li>🌐 Become the most trusted digital platform for polytechnic students.</li>
+          <li>🚀 Empower students with quality academic resources for success.</li>
+          <li>🎯 Support structured and goal-oriented learning for better outcomes.</li>
+        </ul>
+      </div>
+
+      <div class="mission-card">
+        <i class="fas fa-heart"></i>
+        <h3>Our Core Values</h3>
+        <ul>
+          <li>✅ Accessibility for all students</li>
+          <li>✅ Collaboration between students and teachers</li>
+          <li>✅ Simplicity in design and content</li>
+          <li>✅ Consistency in quality and service</li>
+          <li>✅ Growth mindset for continuous learning</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section> -->
+
+    <!-- TEAM SECTION -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p>The passionate individuals behind PolyNotes</p>
+
+            
+            
+            <div class="team-members">
+
+                 <div class="team-member">
+                 {% load static %}
+
+<img src="{% static '7.jpg' %}" alt="Nishant Chorasiya" class="img-fluid">
+
+                    <h3>Nishant chorasiya</h3>
+                    <p class="position">Faculty Advisor</p>
+                    <p class="bio">An experienced professor from SV Polytechnic who has guided the development of PolyNotes from the beginning. He reviews our content, ensures academic accuracy, and provides valuable suggestions to improve the learning experience.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/nishant-chaurasia-b82576283"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+               
+                
+                <div class="team-member">
+                   <img src="{% static 'i5.jpg' %}" alt="Ishu Sharma" class="img-fluid">
+                    <h3>Ishu sharma</h3>
+                    <p class="position">Faculty Advisor</p>
+                    <p class="bio">A dedicated professor from SV Polytechnic who has been instrumental in resolving every challenge faced during the development of PolyNotes. His timely support, problem-solving mindset, and deep technical understanding have ensured smooth progress at every stage.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ishu-sharma-12m"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                  <img src="{% static 'golu.jpg' %}" alt="Ghanshyam" class="img-fluid">
+                    <h3>Ghanshyam</h3>
+                    <p class="position"> Developer</p>
+                    <p class="bio">A passionate polytechnic student from SV Polytechnic (Batch 2022–2025) who identified the gap in quality study materials available for diploma students. Driven by the desire to help his peers, he conceptualized and created PolyNotes under the mentorship of experienced faculty members. Today, PolyNotes serves as a dedicated platform offering accessible, well-structured academic resources to support diploma students across MP in their educational journey.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ghanshyam-jarati-a094b9287"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                  {% load static %}
+
+                  <img src="{% static 'khushi1.jpg' %}" alt="KHUSHEE" class="img-fluid">
+
+                    <h4>KHUSHEE MAKODE</h4>
+                    <p class="position">Content Editor</p>
+                    <p class="bio">Khushee Makode, a passionate and dedicated student from SV Polytechnic (Batch 2022–2025),she took the initiative to collect and compile study material from trusted sources. Her efforts in organizing the notes branch-wise and semester-wise have made academic content more structured and easily accessible for students across the platform.
+
+</p>
+                    <div class="social-links">
+                        <!-- <a href="#"><i class="fab fa-twitter"></i></a> -->
+                        <a href="https://www.linkedin.com/in/khushee-makode-b77625359"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+              
+            </div>
+        </div>
+    </section>
+
+    <style>
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<table>
+  <tr>
+    <th>Roll No</th>
+    <th>Name</th>
+    <th>Branch</th>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Ghanshyam</td>
+    <td>CSE</td>
+  </tr>
+  <tr>
+    <td>102</td>
+    <td>Nishant</td>
+    <td>IT</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>Ishu</td>
+    <td>Mechanical</td>
+  </tr>
+</table>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <h2 style="text-align:center;">Notes Contribution List</h2>
+
+<table>
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Connect</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Ghanshyam J</td>
+        <td><a href="mailto:ghanshyamj9755@gmail.com">Email</a></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Khushee Makode</td>
+        <td><a href="mailto:khushee@example.com">Email</a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Nishant Chorasiya</td>
+        <td><a href="mailto:nishant@example.com">Email</a></td>
+    </tr>
+</table>
+
+ <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        img {
+            width: 60px;  /* image size */
+            height: 60px;
+            border-radius: 50%;  /* round image */
+            object-fit: cover;
+        }
+    </style>
+
+    <h2 style="text-align:center;">Notes Contribution List</h2>
+
+<table>
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Connect</th>
+        <th>Image</th> <!-- New column -->
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Ghanshyam J</td>
+        <td><a href="mailto:ghanshyamj9755@gmail.com">Email</a></td>
+        <td><img src="{% static 'ghanshyam.jpg' %}" alt="Ghanshyam"></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Khushee Makode</td>
+        <td><a href="mailto:khushee@example.com">Email</a></td>
+        <td><img src="{% static 'khushee.jpg' %}" alt="Khushee"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Nishant Chorasiya</td>
+        <td><a href="mailto:nishant@example.com">Email</a></td>
+        <td><img src="{% static 'nishant.jpg' %}" alt="Nishant"></td>
+    </tr>
+</table>
+    
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join Our Growing Community</h2>
+            <p>Whether you're a student looking for resources or an educator wanting to contribute, we'd love to have you with us.</p>
+            <a href="https://www.linkedin.com/groups/14781159/" class="cta-btn">Get In Touch</a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+    <div class="footer-container">
+      <!-- About Section -->
+      <div class="footer-section">
+        <h2>PolyNotes</h2>
+        <p>PolyNotes is made for Polytechnic students to easily access semester-wise notes, previous year papers, and learning resources.</p>
+      </div>
+
+      
+
+      <!-- Contact Info -->
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <a href="mailto:polynotes@gmail.com">polynotes@gmail.com</a>
+        <p>Location: India</p>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="https://www.linkedin.com/groups/14781159/">LinkedIn</a>
+      </div>
+    </div>
+
+    <hr class="footer-divider" />
+
+    <div class="footer-bottom">
+      <p>© 2025 PolyNotes | Made with  for Polytechnic Students | </p>
+    </div>
+  </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+        
+        // Dropdown functionality
+        document.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                const dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

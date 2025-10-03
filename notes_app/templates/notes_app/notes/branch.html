@@ -1,0 +1,39 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}Select Branch{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Select Your Branch</h4>
+            <p class="mb-0">Language: {{ language.name }}</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for branch in branches %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 note-card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ branch.name }}</h5>
+                                <p class="card-text text-muted">{{ branch.code }}</p>
+                                <a href="{% url 'select_semester' language_id branch.id %}" class="btn btn-primary mt-3">Select</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-warning">
+                            No branches available. Please contact admin.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mt-3">
+                <a href="{% url 'select_language' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Languages
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
