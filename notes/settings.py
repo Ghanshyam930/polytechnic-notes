@@ -1,5 +1,109 @@
+# import os
+# from pathlib import Path
+
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-default-key')
+
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.onrender.com').split(',')
+
+# # Application definition
+# INSTALLED_APPS = [
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+#     'notes_app',
+#     'crispy_forms',
+#     'crispy_bootstrap5',
+# ]
+
+# MIDDLEWARE = [
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
+
+# ROOT_URLCONF = 'notes.urls'
+
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
+# WSGI_APPLICATION = 'notes.wsgi.application'
+
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# # Password validation
+# AUTH_PASSWORD_VALIDATORS = [
+#     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+#     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+#     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+#     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+# ]
+
+# # Internationalization
+# LANGUAGE_CODE = 'en-us'
+# TIME_ZONE = 'UTC'
+# USE_I18N = True
+# USE_TZ = True
+
+# # Static files (CSS, JavaScript, Images)
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # ✅ Add this line for Render
+
+# # Media files
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# # Crispy forms
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+# CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# # Auth
+# LOGIN_REDIRECT_URL = 'home'
+# LOGIN_URL = 'login'
+
+# # Default primary key field type
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +127,10 @@ INSTALLED_APPS = [
     'notes_app',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    # ✅ Cloudinary apps
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -79,11 +187,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # ✅ Add this line for Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# ✅ Media files — Cloudinary integration
+# (Cloudinary will now store uploaded images & PDFs)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_URL = '/media/'  # Django will still serve URLs using this prefix
 
 # Crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -95,3 +211,4 @@ LOGIN_URL = 'login'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
