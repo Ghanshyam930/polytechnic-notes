@@ -101,7 +101,7 @@ LOGIN_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
- DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
  CLOUDINARY_STORAGE = {
      'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
