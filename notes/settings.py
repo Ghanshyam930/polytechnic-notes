@@ -100,14 +100,14 @@ LOGIN_URL = 'login'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Media files on Cloudinary
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
- CLOUDINARY_STORAGE = {
-     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-     'API_KEY': os.environ.get('API_KEY'),
-     'API_SECRET': os.environ.get('API_SECRET'),
- }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
 
 
 
