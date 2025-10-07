@@ -2,5 +2,5 @@ Django==4.2
 crispy-bootstrap5==2023.10
 gunicorn
 
-#cloudinary
-#django-cloudinary-storage
+cloudinary
+django-cloudinary-storage
