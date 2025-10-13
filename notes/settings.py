@@ -62,10 +62,15 @@ WSGI_APPLICATION = 'notes.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'notes_postgres_yykm',     
+        'USER': 'notes_postgres_yykm_user',  
+        'PASSWORD': 'pNB4eG1HMpm1GgEi8vmI6dLfAgJO6FUP',    
+        'HOST': 'dpg-d3mblp1r0fns73ejelt0-a',  
+        'PORT': '5432',
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
