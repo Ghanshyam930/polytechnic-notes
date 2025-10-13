@@ -72,7 +72,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from cloudinary.models import CloudinaryField
+# from cloudinary.models import CloudinaryField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -143,8 +143,8 @@ class Note(models.Model):
 class PreviousPaper(models.Model):
     year = models.IntegerField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    # file = models.FileField(upload_to='papers/') iski jagaha niche wali
-    file = CloudinaryField('file', resource_type='raw')
+     file = models.FileField(upload_to='papers/')
+    # file = CloudinaryField('file', resource_type='raw')
     
     uploaded_at = models.DateTimeField(default=timezone.now)
     # language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True, blank=True)
