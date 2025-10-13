@@ -143,7 +143,7 @@ class Note(models.Model):
 class PreviousPaper(models.Model):
     year = models.IntegerField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-     file = models.FileField(upload_to='papers/')
+    file = models.FileField(upload_to='papers/')
     # file = CloudinaryField('file', resource_type='raw')
     
     uploaded_at = models.DateTimeField(default=timezone.now)
