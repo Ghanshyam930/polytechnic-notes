@@ -86,8 +86,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # ✅ Add this line for Render
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -108,7 +108,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('API_KEY'),
     'API_SECRET': os.environ.get('API_SECRET'),
     # 'SECURE': True,
-    'UPLOAD_PRESET': 'public_uploads',
+    # 'UPLOAD_PRESET': 'public_uploads',
 }
 
 
