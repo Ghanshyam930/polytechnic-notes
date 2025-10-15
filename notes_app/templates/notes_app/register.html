@@ -10,11 +10,26 @@
                     <h4 class="mb-0">Register</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    {% comment %} <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
+                    </form> {% endcomment %}
+                    <form method="POST">
+    {% csrf_token %}
+    <label>Username</label>
+    <input type="text" name="username"><br><br>
+
+    <label>Email </label>
+    <input type="email" name="email"><br><br>
+
+
+    <label>Password</label>
+    <input type="password" name="password"><br><br>
+
+    <button type="submit">Register</button>
+</form>
+
                     <div class="mt-3">
                         <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
                     </div>

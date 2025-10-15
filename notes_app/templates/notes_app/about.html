@@ -1,3 +1,8 @@
+{% extends 'notes_app/base.html' %}
+
+{% block title %}About Us - PolyNotes{% endblock %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,10 +63,6 @@
             color: white;
         }
         
-        /* .logo span {
-            color: var(--primary);
-        } */
-        
        .desktop-menu {
             display: flex;
             gap: 1.5rem;
@@ -73,7 +74,6 @@
             font-size: 1rem;
             font-weight: 900;
             transition: color 0.3s;
-            /* padding: 0.5rem 0; */
         }
         
         .desktop-menu a:hover {
@@ -92,7 +92,6 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: 900;
-            /* font-family: inherit; */
             padding-top: 7px;
         }
         .dropbtn:hover{
@@ -134,13 +133,6 @@
             font-size: 1.8rem;
             cursor: pointer;
         }
-        
-       
-        
-       
-        
-        
-        
         
         /* About Section */
         .about-section {
@@ -216,7 +208,6 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-             /* object-fit: cover;  */
             margin-bottom: 1.5rem;
             border: 5px solid var(--light);
         }
@@ -419,46 +410,6 @@
     </style>
 </head>
 <body>
-    <!-- HEADER (NAVBAR) -->
-     <header>
-        <div class="logo">Poly<span>Notes</span></div>
-        
-        <!-- Desktop Menu -->
-        <nav class="desktop-menu">
-            <a href="index.html"><h2>Home</h2></a>
-              <div class="dropdown">
-                <button class="dropbtn"><h2>Notes<i class="fas fa-caret-down"></i></h2></button>
-                <div class="dropdown-content">
-                    <a href="branch.html">Hindi</a>
-                    <a href="enbranch.html">English</a>
-                </div>
-            </div>
-            <a href="papers.html"><h2>Previous Papers</h2></a>
-            <!-- <a href="/syllabus">Syllabus</a> -->
-            <!-- <a href="#features"><h2>Features</h2></a> -->
-            <a href="about.html"><h2>About Us</h2></a>
-          
-            <a href="contact.html"><h2>Contact</h2></a>
-        </nav>
-        
-      
-        <!-- Mobile Hamburger Menu -->
-        <button class="hamburger" onclick="toggleMenu()">☰</button>
-    </header>
-    
-    <!-- Mobile Menu (Hidden by Default) -->
-    <nav class="mobile-menu" id="mobileMenu">
-        <a href="index.html">Home</a>
-        <a href="branch.html">Hindi Notes</a>
-        <a href="enbranch.html">English Notes</a>
-        <a href="papers.html">Previous Papers</a>
-        <!-- <a href="/syllabus">Syllabus</a> -->
-        <a href="about.html">About Us</a>
-        
-        <a href="contact.html">Contact</a>
-    </nav>
-    
-   
     <!-- ABOUT SECTION -->
     <section class="about-section">
         <div class="container">
@@ -480,51 +431,6 @@
         </div>
     </section>
     
-    <!-- MISSION SECTION -->
- <!-- <section class="mission-section">
-  <div class="container">
-    <h2 class="section-title">Our Mission & Values</h2>
-    
-    <div class="mission-cards">
-      
-      <div class="mission-card">
-        <i class="fas fa-bullseye"></i>
-        <h3>Our Mission</h3>
-        <ul>
-          <li>📚 Provide free and syllabus-based study materials for all branches.</li>
-          <li>🗂️ Offer notes, previous year papers, and practical files in one place.</li>
-          <li>👥 Build a community of learners and educators to share knowledge.</li>
-          <li>🔄 Continuously improve the platform through feedback and innovation.</li>
-          <li>🔓 Make learning simple, accessible, and effective for every student.</li>
-        </ul>
-      </div>
-
-      <div class="mission-card">
-        <i class="fas fa-eye"></i>
-        <h3>Our Vision</h3>
-        <ul>
-          <li>🌐 Become the most trusted digital platform for polytechnic students.</li>
-          <li>🚀 Empower students with quality academic resources for success.</li>
-          <li>🎯 Support structured and goal-oriented learning for better outcomes.</li>
-        </ul>
-      </div>
-
-      <div class="mission-card">
-        <i class="fas fa-heart"></i>
-        <h3>Our Core Values</h3>
-        <ul>
-          <li>✅ Accessibility for all students</li>
-          <li>✅ Collaboration between students and teachers</li>
-          <li>✅ Simplicity in design and content</li>
-          <li>✅ Consistency in quality and service</li>
-          <li>✅ Growth mindset for continuous learning</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section> -->
-
     <!-- TEAM SECTION -->
     <section class="team-section">
         <div class="container">
@@ -536,9 +442,9 @@
             <div class="team-members">
 
                  <div class="team-member">
-                 {% load static %}
+                 
 
-<img src="{% static '7.jpg' %}" alt="Nishant Chorasiya" class="img-fluid">
+<img src="/static/7.jpg" alt="Nishant Chorasiya" class="img-fluid">
 
                     <h3>Nishant chorasiya</h3>
                     <p class="position">Faculty Advisor</p>
@@ -551,7 +457,7 @@
                
                 
                 <div class="team-member">
-                   <img src="{% static 'i5.jpg' %}" alt="Ishu Sharma" class="img-fluid">
+                   <img src="/static/i5.jpg" alt="Ishu Sharma" class="img-fluid">
                     <h3>Ishu sharma</h3>
                     <p class="position">Faculty Advisor</p>
                     <p class="bio">A dedicated professor from SV Polytechnic who has been instrumental in resolving every challenge faced during the development of PolyNotes. His timely support, problem-solving mindset, and deep technical understanding have ensured smooth progress at every stage.</p>
@@ -575,9 +481,9 @@
                 </div>
                 
                 <div class="team-member">
-                  {% load static %}
+                  
 
-                  <img src="{% static 'khushi1.jpg' %}" alt="KHUSHEE" class="img-fluid">
+                  <img src="/static/khushi1.jpg" alt="KHUSHEE" class="img-fluid">
 
                     <h4>KHUSHEE MAKODE</h4>
                     <p class="position">Content Editor</p>
@@ -615,135 +521,59 @@
   }
 </style>
 
-<table>
-  <tr>
-    <th>Roll No</th>
-    <th>Name</th>
-    <th>Branch</th>
-  </tr>
-  <tr>
-    <td>101</td>
-    <td>Ghanshyam</td>
-    <td>CSE</td>
-  </tr>
-  <tr>
-    <td>102</td>
-    <td>Nishant</td>
-    <td>IT</td>
-  </tr>
-  <tr>
-    <td>103</td>
-    <td>Ishu</td>
-    <td>Mechanical</td>
-  </tr>
-</table>
-<style>
-        table {
-            border-collapse: collapse;
-            width: 70%;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 10px 15px;
-            text-align: center;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #ddd;
-        }
-    </style>
+
+     
     <h2 style="text-align:center;">Notes Contribution List</h2>
 
 <table>
     <tr>
-        <th>No</th>
+        <th>Image</th>
         <th>Name</th>
         <th>Connect</th>
     </tr>
     <tr>
-        <td>1</td>
+        <td><img src="/static/ghanshyam.jpg" alt="Ghanshyam" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"></td>
         <td>Ghanshyam J</td>
         <td><a href="mailto:ghanshyamj9755@gmail.com">Email</a></td>
     </tr>
     <tr>
-        <td>2</td>
+        <td><img src="/static/khushee.jpg" alt="Khushee" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"></td>
         <td>Khushee Makode</td>
         <td><a href="mailto:khushee@example.com">Email</a></td>
     </tr>
     <tr>
-        <td>3</td>
+        <td><img src="/static/7.jpg" alt="Nishant" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"></td>
         <td>Nishant Chorasiya</td>
         <td><a href="mailto:nishant@example.com">Email</a></td>
     </tr>
 </table>
 
  <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 10px 15px;
-            text-align: center;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #ddd;
-        }
-        img {
-            width: 60px;  /* image size */
-            height: 60px;
-            border-radius: 50%;  /* round image */
-            object-fit: cover;
-        }
-    </style>
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+    }
+    th, td {
+        border: 1px solid #333;
+        padding: 10px 15px;
+        text-align: center;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+</style> 
+      
 
-    <h2 style="text-align:center;">Notes Contribution List</h2>
-
-<table>
-    <tr>
-        <th>No</th>
-        <th>Name</th>
-        <th>Connect</th>
-        <th>Image</th> <!-- New column -->
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Ghanshyam J</td>
-        <td><a href="mailto:ghanshyamj9755@gmail.com">Email</a></td>
-        <td><img src="{% static 'ghanshyam.jpg' %}" alt="Ghanshyam"></td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Khushee Makode</td>
-        <td><a href="mailto:khushee@example.com">Email</a></td>
-        <td><img src="{% static 'khushee.jpg' %}" alt="Khushee"></td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Nishant Chorasiya</td>
-        <td><a href="mailto:nishant@example.com">Email</a></td>
-        <td><img src="{% static 'nishant.jpg' %}" alt="Nishant"></td>
-    </tr>
-</table>
-    
+ 
     <!-- CTA SECTION -->
     <section class="cta-section">
         <div class="container">
@@ -752,40 +582,6 @@
             <a href="https://www.linkedin.com/groups/14781159/" class="cta-btn">Get In Touch</a>
         </div>
     </section>
-    
-    <!-- FOOTER -->
-    <footer>
-    <div class="footer-container">
-      <!-- About Section -->
-      <div class="footer-section">
-        <h2>PolyNotes</h2>
-        <p>PolyNotes is made for Polytechnic students to easily access semester-wise notes, previous year papers, and learning resources.</p>
-      </div>
-
-      
-
-      <!-- Contact Info -->
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <a href="mailto:polynotes@gmail.com">polynotes@gmail.com</a>
-        <p>Location: India</p>
-      </div>
-
-      <!-- Social Media -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="https://www.linkedin.com/groups/14781159/">LinkedIn</a>
-      </div>
-    </div>
-
-    <hr class="footer-divider" />
-
-    <div class="footer-bottom">
-      <p>© 2025 PolyNotes | Made with  for Polytechnic Students | </p>
-    </div>
-  </footer>
     
     <script>
         // Mobile Menu Toggle
@@ -817,3 +613,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

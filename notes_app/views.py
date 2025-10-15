@@ -290,6 +290,9 @@ def view_note(request, language_id, branch_id, semester_id, subject_id, unit_id)
 def papers_list(request):
     # papers = PreviousPaper.objects.all().order_by('-year')[:15]  # Last 3 years (assuming 5 per year)
     papers = PreviousPaper.objects.all().order_by('-year')
+    # papers = PreviousPaper.objects.all().order_by('-year')[:17]  # Last 3 years (assuming 5 per year)
+    papers = PreviousPaper.objects.all().order_by('-year')
+
     return render(request, 'notes_app/papers/papers.html', {'papers': papers})
 
 # @login_required

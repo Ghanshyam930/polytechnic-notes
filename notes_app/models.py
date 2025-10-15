@@ -130,15 +130,26 @@ class Unit(models.Model):
 
 
 class Note(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=500)  # 200 se 500 kar diya
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    content = models.TextField(blank=True, null=True)  # document likhne ka option
+    content = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
 
+
+
+# class PreviousPaper(models.Model):
+#     year = models.IntegerField()
+#     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+#     file = models.FileField(upload_to='papers/')
+#     uploaded_at = models.DateTimeField(default=timezone.now)
+#     # language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True, blank=True)
+
+#     def __str__(self):
+#         return f'{self.subject.name} - {self.year}'
 
 class PreviousPaper(models.Model):
     year = models.IntegerField()
@@ -146,8 +157,10 @@ class PreviousPaper(models.Model):
     file = models.FileField(upload_to='papers/')
     # file = CloudinaryField('file', resource_type='raw')
     
+    subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+    pdf_url = models.URLField(verbose_name="Cloudinary PDF URL", blank=True, null=True)
+  # 👈 direct URL field
     uploaded_at = models.DateTimeField(default=timezone.now)
-    # language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'{self.subject.name} - {self.year}'
